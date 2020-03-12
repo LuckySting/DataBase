@@ -264,7 +264,7 @@ namespace DataBase
 
         public int createDatabase(String dbName)
         {
-            return 0;
+            throw new Exception("Oracle db doesn't use databases, use schema instead");
         }
 
         public int showDatabases(ref String[] output)
@@ -465,6 +465,17 @@ namespace DataBase
         {
             DataBase db = new DataBase(new OracleConnector(), new ConsoleOutput());
             db.connect("root", "simsimopen", "http://localhost:68666");
+            try
+            {
+                db.createDatabase("test");
+            } 
+            catch(Exception e) {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Error: ");
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                Console.ResetColor();
+            }
         }
     }
 }
